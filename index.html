@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My love </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          keyframes: {
+            fall: {
+              '0%': { transform: 'translateY(-100%)', opacity: '0.8' },
+              '100%': { transform: 'translateY(100vh)', opacity: '0' },
+            },
+          },
+          animation: {
+            'fall-slow': 'fall 10s linear infinite',
+            'fall-medium': 'fall 8s linear infinite',
+            'fall-fast': 'fall 6s linear infinite',
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body>
+
+  <div id="animation-container" class="relative w-full h-screen overflow-hidden bg-pink-100 flex flex-col items-center justify-center">
+    <h1 class="text-4xl md:text-6xl font-bold text-pink-600 text-center z-10 p-4">
+     ❤️ Hello Babe ❤️
+    </h1>
+    <p class="text-lg md:text-xl font-semibold text-pink-500 z-10 mt-2 text-center">
+      You are my everything.
+    </p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('animation-container');
+      const emojis = ['❤️', '💖', '🥰', '😍'];
+
+      // Function to create a new heart emoji
+      function createHeart() {
+        const heart = document.createElement('span');
+        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        heart.textContent = emoji;
+
+        const size = Math.random() * 20 + 10;
+        const left = Math.random() * 100;
+        
+        const speeds = ['fall-slow', 'fall-medium', 'fall-fast'];
+        const randomSpeed = speeds[Math.floor(Math.random() * speeds.length)];
+
+        heart.className = `absolute text-xl md:text-3xl animate-${randomSpeed}`;
+        heart.style.cssText = `
+          left: ${left}%;
+          font-size: ${size}px;
+          animation-delay: -${Math.random() * 10}s;
+          color: #F06292;
+        `;
+
+        container.appendChild(heart);
+
+        // Remove the heart after it falls out of view
+        setTimeout(() => {
+          heart.remove();
+        }, 15000);
+      }
+
+      // Continuously create hearts
+      setInterval(createHeart, 300);
+    });
+  </script>
+
+</body>
+</html>
